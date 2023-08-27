@@ -3,7 +3,8 @@ const SpotifyService = require('../app.service/services')
 const SpotifyController = {
 
     login: (res, req) => {
-        const authUrl = SpotifyService.getAuthorizationUrl();
+        const authUrl = SpotifyService.getAuthorizationUrl(res);
+        res.send(authUrl)
         res.redirect(authUrl)
     },
 

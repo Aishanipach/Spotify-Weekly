@@ -3,6 +3,7 @@ const axios = require('axios');
 var client_id = 'ee8e612ef23c41198483d3793e11b645';
 var redirect_uri = 'http://localhost:3000/redirect';
 var client_secret = '9b2cbec7d15b43fdb52d5a49be576c1a'
+const querystring = require('querystring');
 
 function generateRandomString(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -17,18 +18,17 @@ function generateRandomString(length) {
 }
 
 const SpotifyService = {
-    getAuthorizationUrl: (res) => {
+    getAuthorizationUrl: () => {
         var state = generateRandomString(16);
         var scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public';
 
-        res.redirect('https://accounts.spotify.com/authorize?' +
-            JSON.stringify({
-                response_type: 'code',
-                client_id: client_id,
-                scope: scope,
-                redirect_uri: redirect_uri,
-                state: state
-            }));
+        return `${'https://accounts.spotify.com/authorize?'}${querystring.stringify({
+            response_type: 'code',
+            client_id: client_id,
+            scope: scope,
+            redirect_uri: redirect_uri,
+            state: state
+        })}`
     },
 
     saveDiscoverWeekly: async (code) => {

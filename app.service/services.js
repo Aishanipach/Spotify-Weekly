@@ -1,7 +1,7 @@
 // services/spotifyService.js
 const axios = require('axios');
 var client_id = 'ee8e612ef23c41198483d3793e11b645';
-var redirect_uri = 'http://localhost:3000/redirect';
+var redirect_uri = 'http://127.0.0.1:3000/redirect';
 var client_secret = '9b2cbec7d15b43fdb52d5a49be576c1a'
 const querystring = require('querystring');
 
@@ -26,7 +26,7 @@ const SpotifyService = {
             response_type: 'code',
             client_id: client_id,
             scope: scope,
-            redirect_uri: redirect_uri,
+            redirect_uri: 'http://127.0.0.1:3000/hi',
             state: state
         })}`
     },
@@ -51,10 +51,11 @@ const SpotifyService = {
 
             // Now you can use the access token to make requests to the Spotify API
 
-            res.send('Authorization successful!');
+            console.log('Authorization successful!');
+            return 'YAY'
         } catch (error) {
             console.error('Error exchanging code for token:', error.message);
-            res.status(500).send('Error');
+            return error
         }
 
 
